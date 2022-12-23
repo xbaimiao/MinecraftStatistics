@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.7.21"
     application
+    id("com.github.johnrengelman.shadow") version ("7.1.2")
 }
 
 group = "com.xbaimiao"
@@ -14,6 +15,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("com.mixpanel:mixpanel-java:1.5.1")
+    implementation(fileTree("libs"))
 }
 
 tasks.test {
@@ -25,5 +28,5 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.xbaimiao.minecraft.statistics.MainKt")
 }
