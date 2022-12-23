@@ -8,15 +8,21 @@ data class Server(
     val name: String, val ip: String, val port: Int, val author: String, val fakePlayer: Double
 ) {
 
+    var lastOnline = 0
+
     fun getOnlinePlayers(): Int {
         return try {
             val socket = MCServerSocket.getInstance(ip, port)
             val online = socket.getStatus(ProtocolVersion.v1_12_2).onlinePlayers
-            (online / (1 + fakePlayer)).toInt()
+            val result = (online / (1 + fakePlayer)).toInt()
+            if (result != 0) {
+                lastOnline = result
+            }
+            result
 //            online - (online * fakePlayer).toInt()
         } catch (th: Throwable) {
             th.printStackTrace()
-            0
+            lastOnline
         }
     }
 
