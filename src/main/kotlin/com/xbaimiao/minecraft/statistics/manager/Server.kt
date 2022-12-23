@@ -12,7 +12,8 @@ data class Server(
         return try {
             val socket = MCServerSocket.getInstance(ip, port)
             val online = socket.getStatus(ProtocolVersion.v1_12_2).onlinePlayers
-            online - (online * fakePlayer).toInt()
+            (online / (1 + fakePlayer)).toInt()
+//            online - (online * fakePlayer).toInt()
         } catch (th: Throwable) {
             th.printStackTrace()
             0

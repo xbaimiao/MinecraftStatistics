@@ -35,8 +35,8 @@ object ServerManager {
                     Analytics.init().handle(it.name, "MinecraftStatistics", props)
                     println("发送了 ${it.name} 的统计数据 $props")
                 }
-                // 等待 30 秒
-                Thread.sleep(30000)
+                // 等待 120 秒
+                Thread.sleep(120000)
             }
         }.start()
     }
