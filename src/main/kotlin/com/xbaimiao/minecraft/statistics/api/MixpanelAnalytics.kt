@@ -8,6 +8,7 @@ import java.util.concurrent.Executors
 
 class MixpanelAnalytics : Analytics {
 
+    // mixpanle token
     private val token = "4b7e5b44075462a7f3e60655a5100321"
     private var executor = Executors.newFixedThreadPool(6)
 
