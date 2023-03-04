@@ -6,13 +6,8 @@ interface Analytics {
 
     companion object {
 
-        private lateinit var INSTANCE: Analytics
-
-        fun init(): Analytics {
-            if (this::INSTANCE.isInitialized) {
-                return INSTANCE
-            }
-            return MixpanelAnalytics().also { INSTANCE = it }
+        val INSTANCE: Analytics by lazy {
+            MixpanelAnalytics()
         }
 
     }

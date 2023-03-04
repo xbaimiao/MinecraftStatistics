@@ -32,7 +32,7 @@ object ServerManager {
                     val online = it.getOnlinePlayers()
                     // 发送统计数据
                     val props = it.toProp("online" to online.toString())
-                    Analytics.init().handle(it.name, "MinecraftStatistics", props)
+                    Analytics.INSTANCE.handle(it.name, "MinecraftStatistics", props)
                     println("发送了 ${it.name} 的统计数据 $props")
                 }
                 // 等待 10 秒
