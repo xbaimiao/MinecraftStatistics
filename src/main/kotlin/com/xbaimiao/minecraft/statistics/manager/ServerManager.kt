@@ -1,11 +1,12 @@
 package com.xbaimiao.minecraft.statistics.manager
 
 import com.xbaimiao.minecraft.statistics.api.Analytics
+import kotlinx.coroutines.delay
 import java.io.File
 
 object ServerManager {
 
-    private val servers = ArrayList<Server>()
+    val servers = ArrayList<Server>()
 
     fun read() {
         val file = File("servers")
@@ -22,23 +23,18 @@ object ServerManager {
         println("读取了 ${servers.size} 个服务器")
     }
 
-    fun analytics() {
-        // 新建一个线程定时执行任务
-        Thread {
-            while (true) {
-                // 遍历服务器列表
-                servers.forEach {
-                    // 获取在线人数
-                    val online = it.getOnlinePlayers()
-                    // 发送统计数据
-                    val props = it.toProp("online" to online.toString())
-                    Analytics.INSTANCE.handle(it.name, "MinecraftStatistics", props)
-                    println("发送了 ${it.name} 的统计数据 $props")
-                }
-                // 等待 10 秒
-                Thread.sleep(10000)
+    suspend fun analytic(server: Server) {
+        while (true) {
+            // 获取在线人数
+            val online = server.getOnlinePlayers()
+            // 发送统计数据
+            val props = server.toProp("online" to online.toString())
+            Analytics.INSTANCE.handle(server.name, "MinecraftStatistics", props).thenAccept { _ ->
+                println("发送了 ${server.name} 的统计数据 $props")
             }
-        }.start()
+            // 等待 2 秒
+            delay(2000)
+        }
     }
 
 }

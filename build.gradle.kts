@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
-    implementation("com.mixpanel:mixpanel-java:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("com.mixpanel:mixpanel-java:1.5.2")
     implementation(fileTree("libs"))
 }
 
