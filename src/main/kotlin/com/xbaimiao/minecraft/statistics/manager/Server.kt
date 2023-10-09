@@ -13,7 +13,7 @@ data class Server(
     fun getOnlinePlayers(): Int {
         return try {
             val socket = MCServerSocket.getInstance(ip, port)
-            val online = socket.getStatus(ProtocolVersion.v1_12_2).onlinePlayers
+            val online = socket.getStatus(ProtocolVersion.v1_12_2)?.onlinePlayers ?: 0
             val result = (online / (1 + fakePlayer)).toInt()
 //            if (result != 0) {
 //                lastOnline = result

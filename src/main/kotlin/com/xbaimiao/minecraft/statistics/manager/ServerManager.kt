@@ -6,9 +6,8 @@ import java.io.File
 
 object ServerManager {
 
-    val servers = ArrayList<Server>()
-
-    fun read() {
+    fun read(): ArrayList<Server> {
+        val servers = ArrayList<Server>()
         val file = File("servers")
         if (!file.exists()) {
             file.mkdirs()
@@ -21,6 +20,7 @@ object ServerManager {
             servers.add(server)
         }
         println("读取了 ${servers.size} 个服务器")
+        return servers
     }
 
     suspend fun analytic(server: Server) {
